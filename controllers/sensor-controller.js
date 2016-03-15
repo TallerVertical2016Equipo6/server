@@ -9,7 +9,7 @@ exports = module.exports = function(io){
         socket.on('signal', function(data){
             console.log(data);
             // Send signal to all clients...
-            io.of('/client').emit('signal', data.event);
+            io.of('/client').emit('signal', data);
         });
 
         socket.on('disconnect', function(){

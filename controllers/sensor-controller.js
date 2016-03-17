@@ -1,13 +1,26 @@
+// This object contains the data from all sensors
 var sockets = require("../sockets.js");
 
 exports = module.exports = function(io){
     io.of('/sensor').on('connection', function(socket){
         console.log('Sensor connected');
 
-        sockets.add('sensor', socket.id, socket)
+        //sockets.add('sensor', socket.id, socket);
+
+        socket.on('initialize', function(data){
+            console.log('initialize data:');
+            console.log(data);
+
+            sockets.add('sensor', socket.id, data)
+        });
 
         socket.on('signal', function(data){
+            console.log('Signal:');
             console.log(data);
+            
+            // Update information on the sockets array
+            sockets.updateSensorData(socket.id, data);
+
             // Send signal to all clients...
             io.of('/client').emit('signal', data);
         });

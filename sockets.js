@@ -41,6 +41,10 @@ var singleton = function singleton(){
 		}
 	}
 
+	this.updateSensorData = function(id, data){
+		sensor_sockets[id] = data;
+	}
+
 	if(singleton.caller != singleton.getInstance){
 		throw new Error("This object cannot be instanciated");
 	}

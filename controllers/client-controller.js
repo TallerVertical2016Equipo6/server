@@ -3,18 +3,13 @@ var sockets = require("../sockets.js");
 
 exports = module.exports = function(io){
 	io.of('/client').on('connection', function(socket){
-		// Set initial state
-		io.to(socket.id).emit('connected', 'initial data');
-        io.to(socket.id).emit('initialize client', sockets.getSocketList('sensor'));
 
-        console.log('client connected')
-
-        socket.on('custom_event', function(data){
-        	console.log(data);
-        });
+        console.log('client connected');
+        // Set initial state
+        io.of('/client').to(socket.id).emit('initialize', sockets.getSocketList('sensor')); 
 
         socket.on('disconnect', function(){
             console.log('client disconnected');
-        });     
+        });    
     });
 }

@@ -6,7 +6,11 @@ exports = module.exports = function(io){
 
         console.log('client connected');
         // Set initial state
-        io.of('/client').to(socket.id).emit('initialize', sockets.getSocketList('sensor')); 
+	var sensors = sockets.getSocketList('sensor'); // Object {"socked_id": {Object}, {"socket_id": {Object}}}
+        var sensors_array = [];
+        sensors_array = Object.keys(sensors).map(function(key){return sensors[key]});
+        
+	io.of('/client').to(socket.id).emit('initialize', sensors_array); 
 
         socket.on('disconnect', function(){
             console.log('client disconnected');

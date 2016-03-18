@@ -21,7 +21,7 @@ exports = module.exports = function(io){
             console.log(data);
             
             // Update information on the sockets array
-            sockets.updateSensorData(socket.id, data);
+            sockets.updateSensorData(data['area'], data);
 
             // Send signal to all clients...
             io.of('/client').emit('signal', data);

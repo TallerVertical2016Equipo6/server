@@ -102,7 +102,7 @@ var singleton = function singleton(){
 	this.updateSensorData = function(id, data){
 		for (var d in data) {
 			if (data.hasOwnProperty(d)) {
-				sensor_sockets[id][key] = data[key]
+				sensor_sockets[id][d] = data[d]
 			}
 		}
 	};

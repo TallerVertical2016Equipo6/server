@@ -9,9 +9,11 @@ exports = module.exports = function(io){
 
         socket.on('initialize', function(data){
             console.log('initialize data:');
-            console.log(data);
+            console.log(data['area']);
 
-            sockets.add('sensor', socket.id, data)
+            io.of('/sensor').to(socket.id).emit('initialize', sockets.get('sensor', data['area']))
+
+            //sockets.add('sensor', socket.id, data)
         });
 
         socket.on('signal', function(data){
